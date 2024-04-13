@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { contractAbi, contractAddress, web3, getContractInstance } from '../resources/web3Utils';
+import { web3, getContractInstance } from '../resources/web3Utils';
 
 function Deposit() {
   const [amount, setAmount] = useState('');

@@ -7,6 +7,7 @@ const web3 = new Web3(WEB3_PROVIDER);
 
 export { web3 };
 
-export function getContractInstance() {
+export const getContractInstance = () => {
     return new web3.eth.Contract(contractAbi, CONTRACT_ADDRESS);
-  }
+}
+
