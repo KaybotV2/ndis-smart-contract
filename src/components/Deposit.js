@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { web3, getContractInstance } from '../resources/web3Utils'; 
+import {contract } from '../resources/contract'; 
+import web3 from '../resources/web3'; 
 
 const Deposit = () => {
     const [amount, setAmount] = useState('');
@@ -15,7 +16,6 @@ const Deposit = () => {
 
         try {
             setLoading(true);
-            const contract = getContractInstance();
             const accounts = await web3.eth.getAccounts();
             const senderAddress = accounts[0]; 
 

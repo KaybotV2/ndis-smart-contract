@@ -1,5 +1,5 @@
 import React from 'react';
-import { contract } from '../resources/web3Utils'; 
+import { contract } from '../resources/contract'; 
 
 import Deposit from '../components/Deposit';
 import RegisterAccount from '../components/RegisterAccount';

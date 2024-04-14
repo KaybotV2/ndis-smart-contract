@@ -109,7 +109,7 @@
 		],
 		"name": "offerService",
 		"outputs": [],
-		"stateMutability": "nonpayable",
+		"stateMutability": "payable",
 		"type": "function"
 	},
 	{
@@ -283,10 +283,6 @@
 		],
 		"name": "WithdrawalRequestInitiated",
 		"type": "event"
-	},
-	{
-		"stateMutability": "payable",
-		"type": "fallback"
 	},
 	{
 		"stateMutability": "payable",

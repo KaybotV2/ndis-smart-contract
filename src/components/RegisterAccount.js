@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { web3, getContractInstance } from '../resources/web3Utils';
+import {contract } from '../resources/contract'; 
+import web3 from '../resources/web3'; 
 
 function RegisterAccount() {
   const [account, setAccount] = useState('');
@@ -12,7 +13,6 @@ function RegisterAccount() {
 
     try {
       setLoading(true);
-      const contract = getContractInstance();
       const accounts = await web3.eth.getAccounts();
       const ndia = accounts[0]; 
       await contract.methods.registerAccount(account, isParticipantAccount).send({ from: ndia });

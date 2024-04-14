@@ -9,8 +9,8 @@ import NdaiPage from './pages/NdiaPage';
 import ServiceProvidersPage from './pages/ServiceProvidersPage';
 import ParticipantsPage from './pages/ParticipantsPage';
 
-
 const App = () => {
+
   return (
     <Router>
      <Navbar />
