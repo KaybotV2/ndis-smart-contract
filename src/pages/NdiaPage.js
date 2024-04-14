@@ -1,12 +1,12 @@
 import React, {useState, useEffect} from 'react';
 
-import Deposit from './Deposit';
-import RegisterAccount from './RegisterAccount';
+import Deposit from '../components/Deposit';
+import RegisterAccount from '../components/RegisterAccount';
 
 const NdaiPage = () => {
 
   return (
-    <div>
+    <div className='container'>
         <Deposit/>
         <hr></hr>
         <RegisterAccount/>

@@ -7,7 +7,7 @@ const Navbar = () => {
    <header className="header">
      <nav className="nav container">
        <NavLink to="/" className="nav__logo">
-        NDIS Smart Contract
+       <div className="logo" />
        </NavLink>
        <div
          className={"nav__menu"}

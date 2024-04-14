@@ -2,7 +2,7 @@ import React from 'react';
 
 const ParticipantsPage = () => {
   return (
-    <div>
+    <div className='container'>
         <p>ParticipantsPage</p>
     </div>
   );

@@ -1,13 +1,13 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import './index.css';
+import './App.css';
 
 // Components
 import Navbar from './components/Navbar';
-import Dashboard from './components/Dashboard';
-import NdaiPage from './components/NdiaPage';
-import ServiceProvidersPage from './components/ServiceProvidersPage';
-import ParticipantsPage from './components/ParticipantsPage';
+import Dashboard from './pages/Dashboard';
+import NdaiPage from './pages/NdiaPage';
+import ServiceProvidersPage from './pages/ServiceProvidersPage';
+import ParticipantsPage from './pages/ParticipantsPage';
 
 
 const App = () => {

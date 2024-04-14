@@ -26,7 +26,7 @@ const Dashboard = () => {
   };
 
   return (
-    <div>
+    <div className='container'>
         <h1>Welcome to the NDIS Smart Contract App</h1>
         <div>This contract is managed by: {ndia}</div>
         <div>Contract Balance: {contractBalance} Ether</div>

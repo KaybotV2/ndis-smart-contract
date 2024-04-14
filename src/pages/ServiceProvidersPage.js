@@ -2,7 +2,7 @@ import React from 'react';
 
 const ServiceProvidersPage = () => {
   return (
-    <div>
+    <div className='container'>
         <p>ServiceProvidersPage</p>
     </div>
   );
