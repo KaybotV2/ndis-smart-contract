@@ -7,7 +7,8 @@ const Navbar = () => {
    <header className="header">
      <nav className="nav container">
        <NavLink to="/" className="nav__logo">
-       <div className="logo" />
+       <div className="logo"></div>
+       <span class="sr-only">Home</span>
        </NavLink>
        <div
          className={"nav__menu"}
