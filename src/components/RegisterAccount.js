@@ -12,9 +12,10 @@ function RegisterAccount() {
 
     try {
       setLoading(true);
-      const accounts = await web3.eth.getAccounts();
       const contract = getContractInstance();
-      await contract.methods.registerAccount(account, isParticipantAccount).send({ from: accounts[0] });
+      const accounts = await web3.eth.getAccounts();
+      const ndia = accounts[0]; 
+      await contract.methods.registerAccount(account, isParticipantAccount).send({ from: ndia });
       setAccount('');
       setError('');
       alert('Account registered successfully');
@@ -31,7 +32,7 @@ function RegisterAccount() {
       <h2>Register Participant</h2>
       <form onSubmit={handleRegister}>
         <div>
-          <label htmlFor="account">Account:</label>
+          <label htmlFor="account">Account Address:</label>
           <input
             type="text"
             id="account"

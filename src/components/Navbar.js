@@ -8,7 +8,7 @@ const Navbar = () => {
      <nav className="nav container">
        <NavLink to="/" className="nav__logo">
        <div className="logo"></div>
-       <span class="sr-only">Home</span>
+       <span className="sr-only">Home</span>
        </NavLink>
        <div
          className={"nav__menu"}

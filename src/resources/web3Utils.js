@@ -11,3 +11,5 @@ export const getContractInstance = () => {
     return new web3.eth.Contract(contractAbi, CONTRACT_ADDRESS);
 }
 
+export const contract = getContractInstance();
+
