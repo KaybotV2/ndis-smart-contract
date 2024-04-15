@@ -5,10 +5,11 @@ import web3 from '../resources/web3';
 // Components 
 import DisplayServiceBooking from '../components/DisplayServiceBooking';
 
+
 const Dashboard = () => {
-  const [booking, setBooking] = useState('')
   const [contractBalance, setContractBalance] = useState('');
   const [ndia, setNdiaAccount] = useState('');
+  const [bookings, setBooking] = useState('');
 
   useEffect(() => {
     loadBlockchainData();
@@ -35,7 +36,7 @@ const Dashboard = () => {
         <h1>Welcome to the NDIS Smart Contract App</h1>
         <div>This contract is managed by: {ndia}</div>
         <div>Contract Balance: {contractBalance} Ether</div>
-        <DisplayServiceBooking bookings={booking} />
+        <DisplayServiceBooking bookings={bookings} />
     </div>
   );
 };
