@@ -6,3 +6,39 @@ main {
 div.container {
   padding: 2rem;
 }
+
+.table-container {
+  overflow-x: auto; /* Enable horizontal scrolling */
+}
+
+.table-wrapper {
+  overflow-y: auto; /* Enable vertical scrolling if needed */
+}
+
+.custom-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px; /* Increase top margin */
+}
+
+.custom-table th, .custom-table td {
+  padding: 10px; /* Increase padding */
+  border: 1px solid #e0e0e0; /* Slightly lighter border for contrast */
+  text-align: left;
+}
+
+.custom-table th {
+  background-color: #f5f5f5;
+  font-weight: bold;
+  color: #403f3f;
+}
+
+.custom-table tr:nth-child(even) {
+  background-color: #fafafa; /* Even row background color */
+  color: #000;
+}
+
+.custom-table tr:hover {
+  background-color: #cf9cde; /* Hover background color */
+  color: #000;
+}
