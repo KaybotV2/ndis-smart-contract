@@ -3,7 +3,7 @@ import { contract } from '../resources/contract';
 
 import Deposit from '../components/Deposit';
 import RegisterAccount from '../components/RegisterAccount';
-import ApproveWithdrawal from '../components/ApproveWithdrawal';
+import DisplayApprovalResquest from '../components/DisplayApprovalRequest'
 
 const NdaiPage = () => {
 
@@ -14,7 +14,7 @@ const NdaiPage = () => {
         <hr></hr>
         <RegisterAccount/>
         <hr></hr>
-        <ApproveWithdrawal contractInstance={contract} />
+        <DisplayApprovalResquest />
     </div>
   );
 };

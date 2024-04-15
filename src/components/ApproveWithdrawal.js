@@ -1,36 +1,61 @@
 import React, { useState } from 'react';
+import { contract } from '../resources/contract';
+import RequestIdLookup from './RequestIdLookup';
 
-const ApproveWithdrawal = ({ contractInstance }) => {
-    const [requestId, setRequestId] = useState('');
+const ApproveWithdrawal = () => {
+    const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
+    const [showInput, setShowInput] = useState(false);
+    const [selectedRequestId, setSelectedRequestId] = useState('');
+
+    const handleButtonClick = () => {
+        setShowInput(true);
+      };
+
+    
+      const handleCancel = () => {
+        setShowInput(false);
+        setError('');
+      };
+    
+      const handleRequestIdSelection = (requestId) => {
+        setSelectedRequestId(requestId);
+      };
 
     const handleApproveWithdrawal = async () => {
+        setLoading(true);
         try {
-            const ndia = await contractInstance.methods.ndia().call();
-            await contractInstance.methods.approveWithdrawal(requestId).send({ from: ndia });
-
-            setRequestId('');
-            setError('');
+            const ndia = await contract.methods.ndia().call();
+            await contract.methods.approveWithdrawal(selectedRequestId).send({ from: ndia });
+            // Update UI or handle success
+            alert('Request has been approved successfully!');
 
         } catch (error) {
             setError('Error approving withdrawal: ' + error.message);
             console.error('Error approving withdrawal:', error);
         }
+        setLoading(false);
     };
 
     return (
         <div>
-            <h2>Approve Withdrawal</h2>
-            <input
-                type="text"
-                value={requestId}
-                onChange={(e) => setRequestId(e.target.value)}
-                placeholder="Enter requestId"
-            />
-            <button onClick={handleApproveWithdrawal}>Approve Withdrawal</button>
-            {error && <p style={{ color: 'red' }}>{error}</p>}
+           <button onClick={handleButtonClick}>Approve</button>
+           {showInput && (
+              <div>
+                <RequestIdLookup onSelectRequestId={handleRequestIdSelection} />
+                {selectedRequestId && (
+                  <>
+                    <button onClick={handleApproveWithdrawal} disabled={loading}>
+                    {loading ? 'Loading...' : 'Confirm'}
+                    </button>
+                    <button onClick={handleCancel}>Cancel</button>
+                  </>
+                )}
+              </div>
+           )}
+             {error && <div style={{ color: 'red' }}>{error}</div>}
         </div>
-    );
+      );
 };
 
 export default ApproveWithdrawal;

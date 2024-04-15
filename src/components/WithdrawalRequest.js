@@ -36,7 +36,7 @@ const WithdrawalRequest = ({ amount }) => {
       // Call the initiateWithdrawalRequest function on the contract
       await contract.methods.initiateWithdrawalRequest(selectedRequestId, amount).send({ from: providerAddress });
       // Update UI or handle success
-      console.log('Withdrawal request initiated successfully!');
+      alert('Withdrawal request initiated successfully!');
     } catch (error) {
       setError('Error initiating withdrawal request: ' + error.message);
     }
@@ -57,7 +57,7 @@ const WithdrawalRequest = ({ amount }) => {
                         value={inputValue}
                         onChange={handleInputChange} />
                 <button onClick={initiateWithdrawal} disabled={loading}>
-                {loading ? 'Loading...' : 'Initiate Withdrawal'}
+                {loading ? 'Loading...' : 'Confirm'}
                 </button>
                 <button onClick={handleCancel}>Cancel</button>
               </>
