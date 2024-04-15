@@ -1,70 +1,55 @@
 import React, { useState } from 'react';
 import { contract } from '../resources/contract';
 
+
 // Component
-import RequestIdLookup from './RequestIdLookup';
+import ActionButton from '../components/ActionButton';
 
 const WithdrawalRequest = ({ amount }) => {
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState('');
-  const [showInput, setShowInput] = useState(false);
-  const [inputValue, setInputValue] = useState('');
-  const [selectedRequestId, setSelectedRequestId] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
+  const [selectedRequestId, setSelectedRequestId] = useState(null);
+  const [serviceProviderAddress, setServiceProviderAddress] = useState('');
 
-  const handleButtonClick = () => {
-    setShowInput(true);
-  };
-
-  const handleInputChange = (e) => {
-    setInputValue(e.target.value);
-  };
-
-  const handleCancel = () => {
-    setShowInput(false);
-    setInputValue('');
-    setError('');
-  };
-
-  const handleRequestIdSelection = (requestId) => {
-    setSelectedRequestId(requestId);
-  };
-
-  const initiateWithdrawal = async () => {
-    setLoading(true);
+  const initiateWithdrawal = async (serviceProviderAddress) => {
     try {
-      let providerAddress = inputValue.trim();
       // Call the initiateWithdrawalRequest function on the contract
-      await contract.methods.initiateWithdrawalRequest(selectedRequestId, amount).send({ from: providerAddress });
+      await contract.methods.initiateWithdrawalRequest(selectedRequestId, amount).send({ from: serviceProviderAddress });
       // Update UI or handle success
       alert('Withdrawal request initiated successfully!');
     } catch (error) {
-      setError('Error initiating withdrawal request: ' + error.message);
+      setErrorMessage('Error initiating withdrawal request: ' + error.message);
     }
-    setLoading(false);
+  };
+
+  const handleConfirmAction = (_inputValue) => {
+    if (selectedRequestId === null) {
+      setErrorMessage('No request ID selected.');
+      return;
+    }
+    
+    initiateWithdrawal(serviceProviderAddress.trim());
+  };
+  
+
+  const handleInputChange = (value) => {
+    setServiceProviderAddress(value.trim()); // Update serviceProviderAddress with the trimmed value
+  };
+
+  const handleRequestIdSelection = (requestId) => {
+    setSelectedRequestId(requestId); // Update selectedRequestId when a requestId is selected
   };
 
   return (
     <div>
-       <button onClick={handleButtonClick}>Initiate Withdrawal</button>
-       {showInput && (
-          <div>
-            <RequestIdLookup onSelectRequestId={handleRequestIdSelection} />
-            {selectedRequestId && (
-              <>
-                <input
-                        type="text"
-                        placeholder="Enter service provider address"
-                        value={inputValue}
-                        onChange={handleInputChange} />
-                <button onClick={initiateWithdrawal} disabled={loading}>
-                {loading ? 'Loading...' : 'Confirm'}
-                </button>
-                <button onClick={handleCancel}>Cancel</button>
-              </>
-            )}
-          </div>
-       )}
-         {error && <div style={{ color: 'red' }}>{error}</div>}
+      <ActionButton
+        handleAction={() => setSelectedRequestId(null)}
+        handleConfirmAction={handleConfirmAction}
+        initiateButtonName="Approval Request"
+        requestId={selectedRequestId}
+        handleInputChange={handleInputChange} 
+        onSelectRequestId={handleRequestIdSelection} // Pass handleRequestIdSelection to ActionButton
+      />
+      {errorMessage && <div style={{ color: 'red' }}>{errorMessage}</div>}
     </div>
   );
 };
