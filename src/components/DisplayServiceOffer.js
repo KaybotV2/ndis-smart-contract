@@ -2,6 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { contract } from '../resources/contract';
 import web3 from '../resources/web3';
 
+// Component
+import WithdrawalRequest from './WithdrawalRequest';
+
 const DisplayServiceOffer = () => {
   const [offers, setOffers] = useState([]);
 
@@ -42,6 +45,7 @@ const DisplayServiceOffer = () => {
               <th>Service Description</th>
               <th>Amount</th>
               <th>Status</th>
+              <th>Action</th>
             </tr>
           </thead>
           <tbody>
@@ -54,6 +58,9 @@ const DisplayServiceOffer = () => {
                   <td>{offer.serviceDescription}</td>
                   <td>{offer.amount} Ether</td>
                   <td>{offer.status}</td>
+                  <td>
+                    <WithdrawalRequest amount={offer.amount} />
+                  </td>
                 </tr>
               )
             ))}
