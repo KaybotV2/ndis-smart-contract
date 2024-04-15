@@ -26,24 +26,7 @@ const DisplayServiceBooking = () => {
       }
     };
 
-    const listenForServiceOffered = () => {
-      contract.events.ServiceOffered({}, (error, event) => {
-        if (error) {
-          console.error('Error listening for ServiceOffered event:', error);
-        } else {
-          // Refresh bookings when a new service offer is made
-          fetchBookings();
-        }
-      });
-    };
-
     fetchBookings();
-    listenForServiceOffered(); // Start listening for ServiceOffered events
-
-    // Clean up the event listener when component unmounts
-    return () => {
-      contract.events.ServiceOffered().unsubscribe();
-    };
   }, []);
 
   if (bookings.length === 0) {

@@ -48,24 +48,28 @@ const OfferService = ({ participant, serviceDescription }) => {
     };
   
     return (
-      <div>
-        <button onClick={handleButtonClick}>Offer Service</button>
-        {showInput && (
-          <div>
-            <RequestIdLookup onSelectRequestId={handleRequestIdSelection} />
-            <input
-              type="text"
-              placeholder="Enter service provider address"
-              value={inputValue}
-              onChange={handleInputChange}
-            />
-            <button onClick={handleOfferService}>Confirm</button>
-            <button onClick={handleCancel}>Cancel</button>
-          </div>
-        )}
-        {errorMessage && <div style={{ color: 'red' }}>{errorMessage}</div>}
-      </div>
-    );
+        <div>
+          <button onClick={handleButtonClick}>Offer Service</button>
+          {showInput && (
+            <div>
+              <RequestIdLookup onSelectRequestId={handleRequestIdSelection} />
+              
+              {selectedRequestId && (
+                <>
+                    <input
+                        type="text"
+                        placeholder="Enter service provider address"
+                        value={inputValue}
+                        onChange={handleInputChange} />
+                    <button onClick={handleOfferService}>Confirm</button>
+                    <button onClick={handleCancel}>Cancel</button>
+                </>
+              )}
+            </div>
+          )}
+          {errorMessage && <div style={{ color: 'red' }}>{errorMessage}</div>}
+        </div>
+      );
   };
   
   export default OfferService;
