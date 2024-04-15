@@ -1,9 +1,10 @@
 import React from 'react';
+import DisplayServiceOffer from '../components/DisplayServiceOffer';
 
 const ServiceProvidersPage = () => {
   return (
     <div className='container'>
-        <p>ServiceProvidersPage</p>
+        <DisplayServiceOffer />
     </div>
   );
 };
