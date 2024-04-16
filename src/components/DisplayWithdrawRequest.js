@@ -6,6 +6,13 @@ import useFetchRequets from '../hooks/useFetchRequests';
 const DisplayWithdrawRequest = () => {
     const withdrawRequests = useFetchRequets(); 
 
+    const pendingApproval = withdrawRequests.filter(booking => booking.status === 'Waiting For Approval');
+
+  if (pendingApproval.length === 0) {
+    return <div className='component-container'>No pending bookings to display</div>;
+  }
+
+
   return (
     <div className='component-container'>
       <div className="table-container">
@@ -21,7 +28,7 @@ const DisplayWithdrawRequest = () => {
               </tr>
             </thead>
             <tbody>
-              {withdrawRequests.map((request, index) => (
+              {pendingApproval.map((request, index) => (
                 <tr key={index}>
                   <td>{request.jobNumber}</td>
                   <td>{request.participant}</td>

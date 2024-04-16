@@ -50,7 +50,7 @@ const Dashboard = () => {
           All Service Offers
         </button>
         <button className={`tab-button ${activeTab === 'requests' ? 'active' : ''}`} onClick={() => handleTabChange('requests')}>
-          All Requests
+          All Pending Approvals
         </button>
       </div>
       {activeTab === 'bookings' && <DisplayServiceBooking />}
