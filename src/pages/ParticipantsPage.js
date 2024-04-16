@@ -1,5 +1,4 @@
 import React from 'react';
-import ServiceBooking from '../components/ServiceBooking';
 import DisplayServiceOptionsList from '../components/DisplayServiceOptionsList ';
 
 const ParticipantsPage = () => {
