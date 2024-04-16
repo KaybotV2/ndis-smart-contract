@@ -43,10 +43,9 @@ const DisplayServiceOffer = () => {
     : (<div>Not found</div>);
 
   return (
-    <div>
+    <div className='component-container'>
       <ServiceOfferedLookup onSelectParticipantIds={handleParticipantIdsSelection} />
       <div className="table-container">
-        <h2>Approval Requests</h2>
         <div className="table-wrapper">
           <table className="custom-table">
             <thead>

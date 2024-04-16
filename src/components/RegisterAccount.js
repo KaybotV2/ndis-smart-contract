@@ -28,8 +28,7 @@ function RegisterAccount() {
   };
 
   return (
-    <div>
-      <h2>Register Participant</h2>
+    <div className='component-container'>
       <form onSubmit={handleRegister}>
         <div>
           <label htmlFor="account">Account Address:</label>

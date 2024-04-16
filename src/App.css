@@ -3,14 +3,20 @@ main {
   color: #fff;
 }
 
-div.container {
-  padding: 2rem;
+input {
+ border-radius: 5px;
+ width: 40%;
+ height: 1.8rem;
+ border: lightgray 1px solid;
 }
 
-div.container > div.dashboard-header {
-  background-color: #f5f3f0;
-  padding: 1rem;
-  color: #636060;
+input[type="checkbox"] {
+  width: auto;
+  height: auto;
+}
+
+div.container {
+  padding: 2rem;
 }
 
 div.container > div.dashboard-header > h1 {
@@ -21,6 +27,18 @@ div.container > div.dashboard-header > h1 {
 div.container > div.dashboard-header > p {
   padding: 5px 0;
   font-weight: bold;
+}
+
+div.component-container, div.container > div.dashboard-header {
+  background-color:  #f2f0f5;
+  color: #2b2929;
+  padding: 1rem;
+  border-radius: 5px;
+}
+
+div.component-container {
+  border-radius: 0;
+  padding-top: 2rem;
 }
 
 .table-container {
@@ -45,9 +63,9 @@ div.container > div.dashboard-header > p {
 }
 
 .custom-table th {
-  background-color: #f5f5f5;
+  background-color: #6a2875;
   font-weight: bold;
-  color: #403f3f;
+  color: #fff;
 }
 
 .custom-table tr:nth-child(even) {
@@ -73,13 +91,13 @@ div.container > div.dashboard-header > p {
 
 .booking-container-display-flex > div,
 .container-display-flex > li {
+  background-color: #f2f0f5;
+  color: #2b2929;
   cursor: pointer;
   flex: 0 0 calc(25% - 2rem); /* 25% width with margin */
-  background-color: rgb(241, 234, 234);
   border-radius: 5px;
   padding: 1rem;
   margin: 1rem;
-  color: #292828;
 }
 
 .container-display-flex > li {
@@ -96,18 +114,41 @@ div.container > div.dashboard-header > p {
   color: #3e326d;
 }
 
+label {
+  padding-right: 10px;
+}
+
 button {
   margin-top: 1rem;
   cursor: pointer;
-  padding: 0px 10px;
+  padding: 5px 15px;
   border-radius: 5px;
-  border-color: #9952a5;
+  border: none;
   font-weight: bold;
-  color: #292828;
+  background-color: #6a2875;
+  color: #ece4e4;
 }
 
 button:hover {
-  background-color: #ead1f1;
+  background-color: #e0b3ec;
+  color: #000;
+}
+
+.tab-button {
+  border-radius: 5px 5px 0 0;
+  padding: 5px 15px;
+  margin: 2px 2px 0 0;
+  background-color: #fff;
+  color: #3b3a3a;
+}
+
+.tab-button:hover {
+  font-weight: bolder;
+  background-color: #cecbcb;
+}
+
+.tab-button.active {
+  background-color:#f2f0f5;
 }
 
 /* Media query for responsiveness */

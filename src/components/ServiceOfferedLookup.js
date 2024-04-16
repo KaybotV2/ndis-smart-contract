@@ -32,7 +32,6 @@ const ServiceOfferedLookup = ({ onSelectParticipantIds }) => {
   return (
     <div>
       <div>
-        {console.log(serviceOfferedEvents)}
         <label htmlFor="serviceProviderInput">Enter Service Provider Address:</label>
         <input
           id="serviceProviderInput"

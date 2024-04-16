@@ -35,8 +35,7 @@ const Deposit = () => {
     };
 
     return (
-        <div>
-            <h2>Deposit Funds</h2>
+        <div className='component-container'>
             <form onSubmit={handleDeposit}>
                 <div>
                     <label htmlFor="amount">Amount (ETH):</label>
