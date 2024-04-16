@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import web3 from '../resources/web3';
 
 // Components
@@ -6,10 +6,10 @@ import WithdrawalRequest from './WithdrawalRequest';
 import ServiceOfferedLookup from './ServiceOfferedLookup';
 
 // Hooks
-import useFetchOffers from '../hooks/useFetchOffers'; 
+import useFetchRequests from '../hooks/useFetchRequests'; 
 
 const SearchServiceOffer = () => {
-  const offers = useFetchOffers(); 
+  const requests = useFetchRequests(); 
   const [selectedParticipantIds, setSelectedParticipantIds] = useState([]);
 
   const handleParticipantIdsSelection = (participantIds) => {
@@ -17,7 +17,7 @@ const SearchServiceOffer = () => {
   };
 
   const filteredOffers = selectedParticipantIds.length > 0
-    ? offers.filter(offer => selectedParticipantIds.includes(offer.participant) && offer.status === "Service Offered")
+    ? requests.filter(request => selectedParticipantIds.includes(request.participant) && request.status === "Service Offered")
     : [];
 
   return (

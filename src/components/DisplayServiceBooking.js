@@ -1,42 +1,23 @@
-import React, { useState, useEffect } from 'react';
-import { contract } from '../resources/contract';
+import React from 'react';
 import web3 from '../resources/web3';
 
 // Components
 import OfferService from './OfferService';
 
+// Hooks
+import useFetchRequests from '../hooks/useFetchRequests';
+
 const DisplayServiceBooking = () => {
-  const [bookings, setBookings] = useState([]);
+  const bookings = useFetchRequests(); 
 
-  useEffect(() => {
-    const fetchBookings = async () => {
-      try {
-        const bookings = await contract.methods.getBookingRequests().call();
-        const processedBookings = bookings.map(booking => ({
-          jobNumber: booking['jobNumber'],
-          participant: booking['requester'],
-          serviceDescription: booking['serviceDescription'],
-          amount: web3.utils.fromWei(booking['amount'], 'ether'),
-          status: Number(booking['status']) === 0 ? 'Pending' : ''
-        }));
-
-        setBookings(processedBookings);
-      } catch (error) {
-        console.error('Error fetching bookings:', error);
-      }
-    };
-
-    fetchBookings();
-  }, []);
-
-  if (bookings.length === 0) {
+  if (!bookings || bookings.length === 0) {
     return <div>No bookings to display</div>;
   }
 
   return (
     <div className='display-service-booking'>
-       <h2>Booking Information</h2>
-       <div className='booking-container-display-flex'>
+      <h2>Booking Information</h2>
+      <div className='booking-container-display-flex'>
         {bookings.map((booking, index) => (
           // Only render the booking if its status is 'Pending'
           booking.status === 'Pending' && (
@@ -66,8 +47,8 @@ const DisplayServiceBooking = () => {
             </div>
           )
         ))}
+      </div>
     </div>
-    </div> 
   );
 };
 

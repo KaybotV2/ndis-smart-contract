@@ -5,23 +5,15 @@ import ApproveWithdrawal from './ApproveWithdrawal';
 import ServiceOfferedLookup from './ServiceOfferedLookup';
 
 // Hooks
-import useFetchWithdrawRequest from '../hooks/useFetchWithdrawRequest'; 
+import useFetchRequests from '../hooks/useFetchRequests';
 
 const SearchApprovalRequest = ({ requestId }) => {
-  const { withdrawRequests, loading, error } = useFetchWithdrawRequest(); 
+  const withdrawRequests = useFetchRequests(); 
   const [selectedParticipantIds, setSelectedParticipantIds] = useState([]);
 
   const handleParticipantIdsSelection = (participantIds) => {
     setSelectedParticipantIds(participantIds);
   };
-
-  if (loading) {
-    return <div>Loading...</div>; 
-  }
-
-  if (error) {
-    return <div>Error: {error.message}</div>; 
-  }
 
   const filteredRequests = selectedParticipantIds.length > 0
     ? withdrawRequests.filter(request => selectedParticipantIds.includes(request.participant) && request.status === "Waiting For Approval")
