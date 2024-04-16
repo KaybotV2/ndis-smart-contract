@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
-import web3 from '../resources/web3';
-import { contract } from '../resources/contract';
+import web3 from '../contract/web3';
+import { contract } from '../contract/contract';
 
 const useFetchRequets = () => {
   const [requests, setOffers] = useState([]);

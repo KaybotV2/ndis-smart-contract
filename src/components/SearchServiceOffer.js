@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import web3 from '../resources/web3';
+import web3 from '../contract/web3';
 
 // Components
 import WithdrawalRequest from './WithdrawalRequest';

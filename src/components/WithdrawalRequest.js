@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { contract } from '../resources/contract';
+import { contract } from '../contract/contract';
 
 
 // Component

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { contract } from '../resources/contract';
-import web3 from '../resources/web3';
+import { contract } from '../contract/contract';
+import web3 from '../contract/web3';
 import DisplayServiceBooking from '../components/DisplayServiceBooking';
 import DisplayServiceOffer from '../components/DisplayServiceOffer';
 import DisplayWithdrawalRequest from '../components/DisplayWithdrawRequest';

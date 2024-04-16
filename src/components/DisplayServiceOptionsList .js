@@ -1,8 +1,8 @@
 // DisplayServiceOptionsList.js
 
 import React, { useState } from 'react';
-import { contract } from '../resources/contract';
-import web3 from '../resources/web3';
+import { contract } from '../contract/contract';
+import web3 from '../contract/web3';
 import Dashboard from '../pages/Dashboard';
 import BookServiceButton from './BookServiceButton';
 
