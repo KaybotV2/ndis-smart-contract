@@ -2,12 +2,12 @@ import React, { useState } from 'react';
 import { contract } from '../resources/contract';
 import ActionButton from '../components/ActionButton';
 
-const OfferService = ({ participant, serviceDescription }) => {
+const OfferService = ({ participant, serviceDescription, redirectToServiceOffer  }) => {
   const [errorMessage, setErrorMessage] = useState('');
   const [selectedRequestId, setSelectedRequestId] = useState(null);
   const [serviceProviderAddress, setServiceProviderAddress] = useState('');
-
-
+  
+ 
   const handleOfferService = async (serviceProviderAddress) => {
     try {
       if (selectedRequestId === null) {
@@ -18,6 +18,7 @@ const OfferService = ({ participant, serviceDescription }) => {
         .offerService(participant, selectedRequestId, serviceDescription)
         .send({ from: serviceProviderAddress });
       alert("Service offered successfully");
+      redirectToServiceOffer(); 
     } catch (error) {
       setErrorMessage('An error occurred while offering the service.');
       console.error(error);

@@ -30,6 +30,7 @@ const ApproveWithdrawal = () => {
             await contract.methods.approveWithdrawal(selectedRequestId).send({ from: ndia });
             // Update UI or handle success
             setSuccess('Request has been approved successfully!');
+            setShowInput(false);
         } catch (error) {
             setError('Error approving withdrawal: ' + error.message);
             console.error('Error approving withdrawal:', error);
