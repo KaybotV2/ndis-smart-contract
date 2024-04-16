@@ -25,7 +25,7 @@ function ActionButton({ handleAction, handleConfirmAction, initiateButtonName, r
 
   const handleConfirm = () => {
     handleConfirmAction(inputValue); // Pass inputValue or any necessary data to the confirm action handler
-    setLoading(true); // Set loading state if needed
+    setLoading(false); // Set loading state if needed
   };
 
   return (

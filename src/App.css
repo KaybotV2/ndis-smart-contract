@@ -42,3 +42,18 @@ div.container {
   background-color: #cf9cde; /* Hover background color */
   color: #000;
 }
+
+.service-option-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+
+.service-option-list > li {
+  width: 25%;
+  height: auto;
+  background-color: rgb(241, 234, 234);
+  padding: 1rem;
+  margin: 1rem;
+  color: #292828;
+}
