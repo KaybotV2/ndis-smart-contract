@@ -46,14 +46,46 @@ div.container {
 .service-option-list {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-evenly;
 }
 
 .service-option-list > li {
-  width: 25%;
-  height: auto;
+  cursor: pointer;
+  flex: 0 0 calc(25% - 2rem); /* 25% width with margin */
+  height: 8rem;
   background-color: rgb(241, 234, 234);
+  border-radius: 5px;
   padding: 1rem;
   margin: 1rem;
   color: #292828;
+}
+
+.service-option-list > li:hover {
+  font-weight: bolder;
+}
+
+button {
+  margin-top: 1rem;
+  cursor: pointer;
+  padding: 0px 10px;
+  border-radius: 5px;
+  border-color: #9952a5;
+  font-weight: bold;
+  color: #292828;
+}
+
+button:hover {
+  background-color: #ead1f1;
+}
+
+/* Media query for responsiveness */
+@media (max-width: 768px) {
+  .service-option-list > li {
+    flex-basis: calc(50% - 2rem); /* 50% width with margin */
+  }
+}
+
+@media (max-width: 480px) {
+  .service-option-list > li {
+    flex-basis: calc(100% - 2rem); /* 100% width with margin */
+  }
 }
