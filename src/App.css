@@ -74,13 +74,21 @@ div.container > div.dashboard-header > p {
 .booking-container-display-flex > div,
 .container-display-flex > li {
   cursor: pointer;
-  flex: 0 0 calc(50% - 2rem); /* 50% width with margin */
-  height: auto;
+  flex: 0 0 calc(25% - 2rem); /* 25% width with margin */
   background-color: rgb(241, 234, 234);
   border-radius: 5px;
   padding: 1rem;
   margin: 1rem;
   color: #292828;
+}
+
+.container-display-flex > li {
+  height: 8rem;
+}
+
+.booking-container-display-flex > div {
+  flex: 0 0 calc(50% - 2rem); /* 50% width with margin */
+  height: auto;
 }
 
 .container-display-flex > li:hover {
