@@ -4,13 +4,11 @@ import web3 from '../resources/web3';
 
 // Components
 import ApproveWithdrawal from './ApproveWithdrawal';
-import RequestIdLookup from './RequestIdLookup';
 import ServiceOfferedLookup from './ServiceOfferedLookup';
 
-const DisplayServiceOffer = () => {
+const SearchApprovalRequest = ({requestId}) => {
   const [approvalRequests, setApprovalRequest] = useState([]);
   const [selectedParticipantIds, setSelectedParticipantIds] = useState([]);
-  const [requestId, setRequestId] = useState('');
 
   useEffect(() => {
     const fetchOffers = async () => {
@@ -81,4 +79,4 @@ const DisplayServiceOffer = () => {
   );
 };
 
-export default DisplayServiceOffer;
+export default SearchApprovalRequest;

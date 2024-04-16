@@ -6,7 +6,7 @@ import web3 from '../resources/web3';
 import WithdrawalRequest from './WithdrawalRequest';
 import ServiceOfferedLookup from './ServiceOfferedLookup';
 
-const DisplayServiceOffer = () => {
+const SearchServiceOffer = () => {
   const [offers, setOffers] = useState([]);
   const [selectedParticipantIds, setSelectedParticipantIds] = useState([]);
 
@@ -44,7 +44,7 @@ const DisplayServiceOffer = () => {
     <div className='component-container'>
       <ServiceOfferedLookup onSelectParticipantIds={handleParticipantIdsSelection} />
       <div className="table-container">
-        <h2>Service Offered Information</h2>
+        <h2>My Service Offered</h2>
         <div className="table-wrapper">
           <table className="custom-table">
             <thead>
@@ -80,4 +80,4 @@ const DisplayServiceOffer = () => {
   );
 };
 
-export default DisplayServiceOffer;
+export default SearchServiceOffer;

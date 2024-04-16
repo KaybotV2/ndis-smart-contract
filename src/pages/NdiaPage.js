@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import Deposit from '../components/Deposit';
 import RegisterAccount from '../components/RegisterAccount';
-import DisplayApprovalResquest from '../components/DisplayApprovalRequest';
+import LookupApprovalResquest from '../components/SearchApprovalRequest';
 
 const NdaiPage = () => {
   const [activeTab, setActiveTab] = useState('deposit');
@@ -21,12 +21,12 @@ const NdaiPage = () => {
           Register Account
         </button>
         <button className={`tab-button ${activeTab === 'approval' ? 'active' : ''}`} onClick={() => handleTabChange('approval')}>
-          Display Approval Request
+          Approval Request
         </button>
       </div>
       {activeTab === 'deposit' && <Deposit />}
       {activeTab === 'register' && <RegisterAccount />}
-      {activeTab === 'approval' && <DisplayApprovalResquest />}
+      {activeTab === 'approval' && <LookupApprovalResquest />}
     </div>
   );
 };

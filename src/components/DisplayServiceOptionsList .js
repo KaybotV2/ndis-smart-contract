@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
-import BookServiceButton from './BookServiceButton';
 import {contract } from '../resources/contract'; 
 import web3 from '../resources/web3'; 
+import Dashboard from '../pages/Dashboard';
+import BookServiceButton from './BookServiceButton';
 
 
 const DisplayServiceOptionsList = () => {
   const [participantAddress, setParticipantAddress] = useState('');
   const [error, setError] = useState('');
+  const [redirect, setRedirect] = useState(false);
   
   const serviceOptions = [
     { value: 'Consumables', amount: 0.00005 },
@@ -20,6 +22,10 @@ const DisplayServiceOptionsList = () => {
     { value: 'Employment', amount: 0.00005 },
     { value: 'Support Coordination', amount: 1 }
   ];
+
+  const handleRedirect = () => {
+    setRedirect(true);
+  };
 
   const generateJobNumber = () => {
     return Date.now().toString();
@@ -45,6 +51,7 @@ const DisplayServiceOptionsList = () => {
       ).send({from: accounts});
       
       alert('Service booked successfully');
+      handleRedirect()
       
     } catch (error) {
       console.log(error);
@@ -59,7 +66,13 @@ const DisplayServiceOptionsList = () => {
   const handleConfirmAction = (index) => { // Modify to accept index
     const { value, amount } = serviceOptions[index]; // Retrieve value and amount using index
     handleBooking(participantAddress, value, amount); // Pass value and amount
+
   };
+
+
+  if (redirect) {
+    return <Dashboard />;
+  }
 
   return (
     <div>

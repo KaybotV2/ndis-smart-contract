@@ -2,6 +2,9 @@ main {
   background-color: #6a2875;
   color: #fff;
 }
+hr {
+  margin-top: 1rem;
+}
 
 input {
  border-radius: 5px;
@@ -43,7 +46,9 @@ div.component-container {
 
 .table-container {
   overflow-x: auto; /* Enable horizontal scrolling */
+  margin-top: 1rem;
 }
+
 
 .table-wrapper {
   overflow-y: auto; /* Enable vertical scrolling if needed */
