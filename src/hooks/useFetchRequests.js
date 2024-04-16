@@ -26,18 +26,14 @@ const useFetchRequets = () => {
 
   // Function to determine status based on offer status
   const getStatus = (status) => {
-    switch (status) {
-      case 0:
-        return 'Pending';
-      case 1:
-        return 'Service Offered';
-      case 2:
-        return 'Waiting For Approval';
-      case 3:
-        return 'Approved';
-      default:
-        return '';
-    }
+    const statusMap = {
+      0: 'Pending',
+      1: 'Service Offered',
+      2: 'Waiting For Approval',
+      3: 'Approved',
+    };
+    
+    return statusMap[status] || ''; // Return the corresponding status string, or an empty string if not found
   };
 
   return requests;

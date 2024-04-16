@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 
-
 const BookServiceButton = ({ handleInputChange, handleConfirmAction }) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
@@ -9,7 +8,7 @@ const BookServiceButton = ({ handleInputChange, handleConfirmAction }) => {
 
   const handleLocalInputChange = (e) => {
     setInputValue(e.target.value);
-    handleInputChange(e.target.value); // Invoke parent's handleInputChange
+    handleInputChange(e.target.value);
   };
 
   const handleButtonClick = () => {
@@ -19,15 +18,21 @@ const BookServiceButton = ({ handleInputChange, handleConfirmAction }) => {
   const handleCancel = () => {
     setShowInput(false);
     setError('');
-    setShowInput(false)
     setInputValue('');
   };
 
   const handleConfirm = () => {
-    handleConfirmAction(inputValue);
-    setLoading(false);
-    setShowInput(false);
-    setInputValue('');
+    setLoading(true);
+    handleConfirmAction(inputValue)
+      .then(() => {
+        setLoading(false);
+        setShowInput(false);
+        setInputValue('');
+      })
+      .catch((error) => {
+        setLoading(false);
+        setError(error.message);
+      });
   };
 
   return (
@@ -36,7 +41,7 @@ const BookServiceButton = ({ handleInputChange, handleConfirmAction }) => {
       {showInput && (
         <div className="popup">
           <div className="popup-content">
-            <button className="close-btn" onClick={handleCancel}>X</button>
+            <button className="close-btn" onClick={handleCancel}>Close</button>
             <input
               id="participantAddressInput"
               type="text"

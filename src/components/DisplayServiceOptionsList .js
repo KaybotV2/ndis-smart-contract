@@ -1,15 +1,16 @@
+// DisplayServiceOptionsList.js
+
 import React, { useState } from 'react';
-import {contract } from '../resources/contract'; 
-import web3 from '../resources/web3'; 
+import { contract } from '../resources/contract';
+import web3 from '../resources/web3';
 import Dashboard from '../pages/Dashboard';
 import BookServiceButton from './BookServiceButton';
-
 
 const DisplayServiceOptionsList = () => {
   const [participantAddress, setParticipantAddress] = useState('');
   const [error, setError] = useState('');
   const [redirect, setRedirect] = useState(false);
-  
+
   const serviceOptions = [
     { value: 'Consumables', amount: 0.00005 },
     { value: 'Daily Activities', amount: 0.00002 },
@@ -33,29 +34,24 @@ const DisplayServiceOptionsList = () => {
 
   const handleBooking = async (participantAddress, value, amount) => {
     try {
-      let accounts = web3.eth.getAccounts();
-      const generatedJobNumber = generateJobNumber();
-      // Convert amount to wei
-      const amountWei = web3.utils.toWei(amount.toString(), 'ether');
-      if (!accounts) {
-          setError('Please select a MetaMask account.');
-          return;
+      const accounts = await web3.eth.getAccounts();
+      if (!accounts || accounts.length === 0) {
+        setError('Please select a MetaMask account.');
+        return;
       }
-      accounts = participantAddress
-  
+      const generatedJobNumber = generateJobNumber();
+      const amountWei = web3.utils.toWei(amount.toString(), 'ether');
       await contract.methods.bookService(
-          generatedJobNumber, 
-          value, 
-          amountWei, 
-          participantAddress
-      ).send({from: accounts});
-      
+        generatedJobNumber,
+        value,
+        amountWei,
+        participantAddress
+      ).send({ from: accounts[0] });
       alert('Service booked successfully');
-      handleRedirect()
-      
+      handleRedirect();
     } catch (error) {
       console.log(error);
-      setError(error);
+      setError(error.message || 'An error occurred during booking.');
     }
   };
 
@@ -63,12 +59,10 @@ const DisplayServiceOptionsList = () => {
     setParticipantAddress(participantAddress);
   };
 
-  const handleConfirmAction = (index) => { // Modify to accept index
-    const { value, amount } = serviceOptions[index]; // Retrieve value and amount using index
-    handleBooking(participantAddress, value, amount); // Pass value and amount
-
+  const handleConfirmAction = async (index) => {
+    const { value, amount } = serviceOptions[index];
+    await handleBooking(participantAddress, value, amount);
   };
-
 
   if (redirect) {
     return <Dashboard />;
@@ -85,7 +79,7 @@ const DisplayServiceOptionsList = () => {
             </div>
             <BookServiceButton
               handleInputChange={handleInputChange}
-              handleConfirmAction={() => handleConfirmAction(index)} // Pass index to handleConfirmAction
+              handleConfirmAction={() => handleConfirmAction(index)}
             />
           </li>
         ))}

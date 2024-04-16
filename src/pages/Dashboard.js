@@ -10,7 +10,6 @@ const Dashboard = () => {
   const [error, setError] = useState('');
   const [contractBalance, setContractBalance] = useState('');
   const [ndiaAccount, setNdiaAccount] = useState('');
-  const [bookings, setBookings] = useState('');
   const [activeTab, setActiveTab] = useState('bookings');
 
   const handleTabChange = (tab) => {
@@ -29,8 +28,6 @@ const Dashboard = () => {
       const balance = await contract.methods.participantFunds().call();
       setContractBalance(web3.utils.fromWei(balance, 'ether'));
 
-      const bookings = await contract.methods.getBookingRequests().call();
-      setBookings(bookings);
     } catch (error) {
       console.error('Error loading blockchain data:', error);
       setError('An error occurred while loading data from the blockchain.');
@@ -56,7 +53,7 @@ const Dashboard = () => {
           All Requests
         </button>
       </div>
-      {activeTab === 'bookings' && <DisplayServiceBooking bookings={bookings} />}
+      {activeTab === 'bookings' && <DisplayServiceBooking />}
       {activeTab === 'offers' && <DisplayServiceOffer />}
       {activeTab === 'requests' && <DisplayWithdrawalRequest />}
       {error && <div style={{ color: 'red' }}>{error}</div>}

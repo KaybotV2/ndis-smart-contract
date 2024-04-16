@@ -15,13 +15,14 @@ const DisplayServiceBooking = () => {
     setRedirectToServiceOffer(true);
   };
 
+  const pendingBookings = bookings.filter(booking => booking.status === 'Pending');
 
-  if (!bookings || bookings.length === 0) {
-    return <div>No bookings to display</div>;
+  if (pendingBookings.length === 0) {
+    return <div className='component-container'>No pending bookings to display</div>;
   }
 
   return (
-    <div className='display-service-booking'>
+    <div className='display-service-booking component-container'>
       {redirectToServiceOffer ? (<><DisplayServiceOffer /></>) 
       :(<>
         <h2>Booking Information</h2>
