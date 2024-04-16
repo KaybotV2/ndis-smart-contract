@@ -91,8 +91,9 @@ div.container > div.dashboard-header > p {
   height: auto;
 }
 
-.container-display-flex > li:hover {
+.container-display-flex > li:hover, .booking-container-display-flex > div:hover {
   font-weight: bolder;
+  color: #3e326d;
 }
 
 button {
