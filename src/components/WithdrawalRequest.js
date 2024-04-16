@@ -6,16 +6,17 @@ import { contract } from '../resources/contract';
 import ActionButton from '../components/ActionButton';
 
 const WithdrawalRequest = ({ amount }) => {
+  const [successMessage, setSuccessMessage] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const [selectedRequestId, setSelectedRequestId] = useState(null);
   const [serviceProviderAddress, setServiceProviderAddress] = useState('');
 
   const initiateWithdrawal = async (serviceProviderAddress) => {
     try {
-      // Call the initiateWithdrawalRequest function on the contract
+      
       await contract.methods.initiateWithdrawalRequest(selectedRequestId, amount).send({ from: serviceProviderAddress });
-      // Update UI or handle success
-      alert('Withdrawal request initiated successfully!');
+      setSuccessMessage('Withdrawal request initiated successfully!');
+
     } catch (error) {
       setErrorMessage('Error initiating withdrawal request: ' + error.message);
     }
@@ -49,6 +50,7 @@ const WithdrawalRequest = ({ amount }) => {
         handleInputChange={handleInputChange} 
         onSelectRequestId={handleRequestIdSelection} // Pass handleRequestIdSelection to ActionButton
       />
+      {successMessage && <div style={{ color: 'green' }}>{successMessage}</div>}
       {errorMessage && <div style={{ color: 'red' }}>{errorMessage}</div>}
     </div>
   );

@@ -5,6 +5,7 @@ import RequestIdLookup from './RequestIdLookup';
 const ApproveWithdrawal = () => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
+    const [success, setSuccess] = useState('');
     const [showInput, setShowInput] = useState(false);
     const [selectedRequestId, setSelectedRequestId] = useState('');
 
@@ -28,8 +29,7 @@ const ApproveWithdrawal = () => {
             const ndia = await contract.methods.ndia().call();
             await contract.methods.approveWithdrawal(selectedRequestId).send({ from: ndia });
             // Update UI or handle success
-            alert('Request has been approved successfully!');
-
+            setSuccess('Request has been approved successfully!');
         } catch (error) {
             setError('Error approving withdrawal: ' + error.message);
             console.error('Error approving withdrawal:', error);
@@ -57,6 +57,7 @@ const ApproveWithdrawal = () => {
               </div>
            )}
              {error && <div style={{ color: 'red' }}>{error}</div>}
+             {success && <div style={{ color: 'green' }}>{success}</div>}
         </div>
       );
 };

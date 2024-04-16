@@ -20,12 +20,14 @@ const BookServiceButton = ({ handleInputChange, handleConfirmAction }) => {
     setShowInput(false);
     setError('');
     setShowInput(false)
+    setInputValue('');
   };
 
   const handleConfirm = () => {
     handleConfirmAction(inputValue);
     setLoading(false);
-    setShowInput(false)
+    setShowInput(false);
+    setInputValue('');
   };
 
   return (
