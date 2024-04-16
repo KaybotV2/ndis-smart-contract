@@ -56,7 +56,7 @@ const RequestIdLookup = ({ onSelectRequestId }) => {
         <button onClick={findRequestIdByJobNumber}>Find Request ID</button>
       </div>
       {foundRequestId && ( // Only show the message if foundRequestId is not null
-        <p>Request ID for Job Number {jobNumberInput}: {foundRequestId} has been selected</p>
+        <p>Request ID {foundRequestId} for Job Number {jobNumberInput} has been selected</p>
       )}
     </div>
   );

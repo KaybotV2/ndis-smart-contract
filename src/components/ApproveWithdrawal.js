@@ -41,7 +41,9 @@ const ApproveWithdrawal = () => {
         <div>
            <button onClick={handleButtonClick}>Approve</button>
            {showInput && (
-              <div>
+              <div className="popup">
+                <div className="popup-content">
+                <button className="close-btn" onClick={handleCancel}>X</button>
                 <RequestIdLookup onSelectRequestId={handleRequestIdSelection} />
                 {selectedRequestId && (
                   <>
@@ -51,6 +53,7 @@ const ApproveWithdrawal = () => {
                     <button onClick={handleCancel}>Cancel</button>
                   </>
                 )}
+                </div>
               </div>
            )}
              {error && <div style={{ color: 'red' }}>{error}</div>}
