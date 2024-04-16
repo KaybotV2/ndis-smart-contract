@@ -1,15 +1,14 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import { contract } from '../resources/contract';
 import web3 from '../resources/web3';
-
-// Components 
 import DisplayServiceBooking from '../components/DisplayServiceBooking';
-
 
 const Dashboard = () => {
   const [contractBalance, setContractBalance] = useState('');
-  const [ndia, setNdiaAccount] = useState('');
-  const [bookings, setBooking] = useState('');
+  const [ndiaAccount, setNdiaAccount] = useState('');
+  const [bookings, setBookings] = useState('');
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
 
   useEffect(() => {
     loadBlockchainData();
@@ -17,26 +16,36 @@ const Dashboard = () => {
 
   const loadBlockchainData = async () => {
     try {
-  
       const ndia = await contract.methods.ndia().call();
       setNdiaAccount(ndia);
-  
+
       const balance = await contract.methods.participantFunds().call();
       setContractBalance(web3.utils.fromWei(balance, 'ether'));
 
-      const bookings = await contract.methods.getBookingRequests().call()
-      setBooking(bookings);
+      const bookings = await contract.methods.getBookingRequests().call();
+      setBookings(bookings);
+      setLoading(false);
     } catch (error) {
       console.error('Error loading blockchain data:', error);
+      setError('An error occurred while loading data from the blockchain.');
+      setLoading(false);
     }
   };
 
   return (
     <div className='container'>
+      <div className='dashboard-header'>
         <h1>Welcome to the NDIS Smart Contract App</h1>
-        <div>This contract is managed by: {ndia}</div>
-        <div>Contract Balance: {contractBalance} Ether</div>
+        <p>This contract is managed by: {ndiaAccount}</p>
+        <p>Contract Balance: {contractBalance} Ether</p>
+      </div>
+      {loading ? (
+        <div>Loading...</div>
+      ) : error ? (
+        <div>Error: {error}</div>
+      ) : (
         <DisplayServiceBooking bookings={bookings} />
+      )}
     </div>
   );
 };

@@ -45,6 +45,7 @@ const DisplayServiceOptionsList = () => {
       ).send({from: accounts});
       
       alert('Service booked successfully');
+      
     } catch (error) {
       console.log(error);
       setError(error);
@@ -63,7 +64,7 @@ const DisplayServiceOptionsList = () => {
   return (
     <div>
       <h2>Service Options</h2>
-      <ul className='service-option-list'>
+      <ul className='container-display-flex'>
         {serviceOptions.map((option, index) => (
           <li key={index}>
             <div>
