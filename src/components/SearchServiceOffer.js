@@ -1,44 +1,24 @@
 import React, { useState, useEffect } from 'react';
-import { contract } from '../resources/contract';
 import web3 from '../resources/web3';
 
 // Components
 import WithdrawalRequest from './WithdrawalRequest';
 import ServiceOfferedLookup from './ServiceOfferedLookup';
 
+// Hooks
+import useFetchOffers from '../hooks/useFetchOffers'; 
+
 const SearchServiceOffer = () => {
-  const [offers, setOffers] = useState([]);
+  const offers = useFetchOffers(); 
   const [selectedParticipantIds, setSelectedParticipantIds] = useState([]);
-
-  useEffect(() => {
-    const fetchOffers = async () => {
-      try {
-        const offers = await contract.methods.getBookingRequests().call();
-        const processedOffers = offers.map(offer => ({
-          jobNumber: offer['jobNumber'],
-          participant: offer['requester'],
-          serviceDescription: offer['serviceDescription'],
-          amount: web3.utils.fromWei(offer['amount'], 'ether'),
-          status: Number(offer['status']) === 1 ? "Service Offered" : ""
-        }));
-
-        setOffers(processedOffers);
-      } catch (error) {
-        console.error('Error fetching offers:', error);
-      }
-    };
-
-    fetchOffers();
-  }, []);
 
   const handleParticipantIdsSelection = (participantIds) => {
     setSelectedParticipantIds(participantIds);
-
   };
 
   const filteredOffers = selectedParticipantIds.length > 0
     ? offers.filter(offer => selectedParticipantIds.includes(offer.participant) && offer.status === "Service Offered")
-    : (<div>Not found</div>);
+    : [];
 
   return (
     <div className='component-container'>
@@ -58,7 +38,7 @@ const SearchServiceOffer = () => {
               </tr>
             </thead>
             <tbody>
-            {filteredOffers.length > 0 ? filteredOffers.map((offer, index) => (
+              {filteredOffers.length > 0 ? filteredOffers.map((offer, index) => (
                 <tr key={index}>
                   <td>{offer.jobNumber}</td>
                   <td>{offer.participant}</td>
@@ -69,7 +49,7 @@ const SearchServiceOffer = () => {
                     <WithdrawalRequest amount={web3.utils.toWei(offer.amount, 'ether')} />
                   </td>
                 </tr>
-              )):(
+              )) : (
                 <tr>Enter your service provider address to find your service offered</tr>
               )}
             </tbody>

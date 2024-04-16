@@ -1,44 +1,31 @@
-import React, { useState, useEffect } from 'react';
-import { contract } from '../resources/contract';
-import web3 from '../resources/web3';
+import React, { useState } from 'react';
 
 // Components
 import ApproveWithdrawal from './ApproveWithdrawal';
 import ServiceOfferedLookup from './ServiceOfferedLookup';
 
-const SearchApprovalRequest = ({requestId}) => {
-  const [approvalRequests, setApprovalRequest] = useState([]);
+// Hooks
+import useFetchWithdrawRequest from '../hooks/useFetchWithdrawRequest'; 
+
+const SearchApprovalRequest = ({ requestId }) => {
+  const { withdrawRequests, loading, error } = useFetchWithdrawRequest(); 
   const [selectedParticipantIds, setSelectedParticipantIds] = useState([]);
-
-  useEffect(() => {
-    const fetchOffers = async () => {
-      try {
-        const approvalRequests = await contract.methods.getBookingRequests().call();
-        const processedOffers = approvalRequests.map(request => ({
-          jobNumber: request['jobNumber'],
-          participant: request['requester'],
-          serviceDescription: request['serviceDescription'],
-          amount: web3.utils.fromWei(request['amount'], 'ether'),
-          status: Number(request['status']) === 2 ? "Waiting For Approval" : ""
-        }));
-
-        setApprovalRequest(processedOffers);
-      } catch (error) {
-        console.error('Error fetching offers:', error);
-      }
-    };
-
-    fetchOffers();
-  }, []);
 
   const handleParticipantIdsSelection = (participantIds) => {
     setSelectedParticipantIds(participantIds);
-
   };
 
+  if (loading) {
+    return <div>Loading...</div>; 
+  }
+
+  if (error) {
+    return <div>Error: {error.message}</div>; 
+  }
+
   const filteredRequests = selectedParticipantIds.length > 0
-    ? approvalRequests.filter(request => selectedParticipantIds.includes(request.participant) && request.status === "Waiting For Approval")
-    : (<div>Not found</div>);
+    ? withdrawRequests.filter(request => selectedParticipantIds.includes(request.participant) && request.status === "Waiting For Approval")
+    : []; 
 
   return (
     <div className='component-container'>
@@ -57,7 +44,7 @@ const SearchApprovalRequest = ({requestId}) => {
               </tr>
             </thead>
             <tbody>
-            {filteredRequests.length > 0 ? filteredRequests.map((request, index) => (
+              {filteredRequests.length > 0 ? filteredRequests.map((request, index) => (
                 <tr key={index}>
                   <td>{request.jobNumber}</td>
                   <td>{request.participant}</td>
@@ -65,11 +52,11 @@ const SearchApprovalRequest = ({requestId}) => {
                   <td>{request.amount} Ether</td>
                   <td>{request.status}</td>
                   <td>
-                  <ApproveWithdrawal contractInstance={requestId} />
+                    <ApproveWithdrawal contractInstance={requestId} />
                   </td>
                 </tr>
-              )):(
-                <tr>Enter your service provider address to find approvalRequests</tr>
+              )) : (
+                <tr>Enter your service provider address to find requests</tr>
               )}
             </tbody>
           </table>
