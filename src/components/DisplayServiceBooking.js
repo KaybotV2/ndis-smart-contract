@@ -41,7 +41,7 @@ const DisplayServiceBooking = () => {
           // Only render the booking if its status is 'Pending'
           booking.status === 'Pending' && (
             <div key={index}>
-              <h3>Booking {index + 1}</h3>
+              <h3>Booking {index + Date.now()}</h3>
               <ul>
                 <li>
                   <strong>Job Number:</strong> {booking.jobNumber}
