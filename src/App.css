@@ -3,6 +3,10 @@ main {
   color: #fff;
 }
 
+p {
+  color: #2b2929;
+}
+
 input {
  border-radius: 5px;
  width: 40%;
@@ -38,7 +42,6 @@ div.component-container, div.container > div.dashboard-header {
 
 div.component-container {
   border-radius: 0;
-  padding-top: 2rem;
 }
 
 .table-container {
