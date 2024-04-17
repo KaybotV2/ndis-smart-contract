@@ -70,10 +70,17 @@ contract NDISSmartContract {
         require(requests[requestId].status == RequestStatus.WaitingForApproval, "Request is not waiting for approval");
 
         address payable serviceProvider = requests[requestId].requester;
-        serviceProvider.transfer(requests[requestId].amount);
+        uint amount = requests[requestId].amount;
+
+        serviceProvider.transfer(amount);
         requests[requestId].status = RequestStatus.Approved;
-        emit Withdrawal(requests[requestId].requester, requestId, requests[requestId].amount, requests[requestId].participantUnidNumber, requests[requestId].serviceDescription, requests[requestId].status);
-    }
+
+        // Deduct the withdrawal amount from participantFunds
+        participantFunds -= amount;
+
+    emit Withdrawal(requests[requestId].requester, requestId, amount, requests[requestId].participantUnidNumber, requests[requestId].serviceDescription, requests[requestId].status);
+}
+
 
 
     function bookService(string memory jobNumber, string memory serviceDescription, uint amount, string memory participantUnidNumber) external onlyNdisParticipant {
@@ -102,17 +109,15 @@ contract NDISSmartContract {
         emit ServiceOffered(msg.sender, participant, requestId, serviceDescription, RequestStatus.ServiceOffered);
     }
 
+
     function initiateWithdrawalRequest(bytes32 requestId, uint amount) external onlyNdisParticipantAndNdisServiceProvider {
         require(requests[requestId].status == RequestStatus.ServiceOffered, "Service not offered");
-        require(participantFunds >= amount, "Insufficient funds!");
-
-        // Deduct the withdrawal amount from participantFunds
-        participantFunds -= amount;
 
         requests[requestId].status = RequestStatus.WaitingForApproval;
 
         emit WithdrawalRequestInitiated(msg.sender, requestId, amount, RequestStatus.WaitingForApproval);
     }
+
 
 
     function getBookingRequests() external view returns (Request[] memory) {
