@@ -1,5 +1,3 @@
-// DisplayServiceOptionsList.js
-
 import React, { useState } from 'react';
 import { contract } from '../contract/contract';
 import web3 from '../contract/web3';
@@ -7,7 +5,6 @@ import Dashboard from '../pages/Dashboard';
 import BookServiceButton from './BookServiceButton';
 
 const DisplayServiceOptionsList = () => {
-  const [participantAddress, setParticipantAddress] = useState('');
   const [error, setError] = useState('');
   const [redirect, setRedirect] = useState(false);
 
@@ -32,12 +29,11 @@ const DisplayServiceOptionsList = () => {
     return Date.now().toString();
   };
 
-  const handleBooking = async (participantAddress, value, amount) => {
+  const handleConfirmAction = async (participantAddress, value, amount) => {
     try {
       const accounts = await web3.eth.getAccounts();
       if (!accounts || accounts.length === 0) {
-        setError('Please select a MetaMask account.');
-        return;
+        throw new Error('Please select a MetaMask account.');
       }
       const generatedJobNumber = generateJobNumber();
       const amountWei = web3.utils.toWei(amount.toString(), 'ether');
@@ -51,17 +47,8 @@ const DisplayServiceOptionsList = () => {
       handleRedirect();
     } catch (error) {
       console.log(error);
-      setError(error.message || 'An error occurred during booking.');
+      setError(error.message || 'An error occurred during confirmation.');
     }
-  };
-
-  const handleInputChange = (participantAddress) => {
-    setParticipantAddress(participantAddress);
-  };
-
-  const handleConfirmAction = async (index) => {
-    const { value, amount } = serviceOptions[index];
-    await handleBooking(participantAddress, value, amount);
   };
 
   if (redirect) {
@@ -71,20 +58,11 @@ const DisplayServiceOptionsList = () => {
   return (
     <div>
       <h2>Service Options</h2>
-      <ul className='container-display-flex'>
-        {serviceOptions.map((option, index) => (
-          <li key={index}>
-            <div>
-              {option.value}: {option.amount} ETH
-            </div>
-            <BookServiceButton
-              handleInputChange={handleInputChange}
-              handleConfirmAction={() => handleConfirmAction(index)}
-            />
-          </li>
-        ))}
-      </ul>
-      {error && <div style={{ color: 'red' }}>{error}</div>}
+      <BookServiceButton
+        items={serviceOptions}
+        handleConfirmAction={handleConfirmAction}
+      />
+      {error && <div style={{ color: 'red' }}>{error.toString()}</div>}
     </div>
   );
 };
