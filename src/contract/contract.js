@@ -6,38 +6,37 @@ import web3 from './web3';
 dotenv.config();
 
 // Function to get contract instance
-export const getContractInstance = () => {
-    // State to store the contract instance
-    const [contractInstance, setContractInstance] = useState(null);
-    
-    useEffect(() => {
-        const initContractInstance = async () => {
-            try {
-                // Retrieve contract address and web3 provider from environment variables
-                const contractAddress = process.env.REACT_APP_CONTRACT_ADDRESS;
-                const web3Provider = process.env.REACT_APP_WEB3_PROVIDER;
-                
-                // Initialize web3 instance
-                const provider = new web3.providers.HttpProvider(web3Provider);
-                const web3Instance = new web3(provider);
+const GetContractInstance = async () => {
+    try {
+        // Retrieve contract address and web3 provider from environment variables
+        const contractAddress = process.env.REACT_APP_CONTRACT_ADDRESS;
+        const web3Provider = process.env.REACT_APP_WEB3_PROVIDER;
 
-                // Create contract instance
-                const contractInstance = new web3Instance.eth.Contract(contractAbi, contractAddress);
-                
-                // Set the contract instance in the state
-                setContractInstance(contractInstance);
-            } catch (error) {
-                console.error("Error initializing contract instance:", error);
-            }
-        };
+        // Check if contract address and web3 provider are available
+        if (!contractAddress || !web3Provider) {
+            throw new Error('Contract address or web3 provider not provided in environment variables.');
+        }
 
-        // Invoke the initialization function
-        initContractInstance();
-    }, []);
+        // Initialize web3 instance
+        const provider = new web3.providers.HttpProvider(web3Provider);
+        const web3Instance = new web3(provider);
 
-    // Return the contract instance
-    return contractInstance;
+        // Create contract instance
+        const contractInstance = new web3Instance.eth.Contract(contractAbi, contractAddress);
+
+        return contractInstance;
+    } catch (error) {
+        console.error("Error initializing contract instance:", error);
+        throw error; // Rethrow the error for handling in the caller
+    }
 };
 
 // Initialize contract
-export const contract = getContractInstance();
+export const contract = async () => {
+    try {
+        return await GetContractInstance();
+    } catch (error) {
+        console.error("Error initializing contract:", error);
+        return null;
+    }
+};
