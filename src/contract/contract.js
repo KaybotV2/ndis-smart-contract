@@ -1,12 +1,11 @@
 import contractAbi from './ndis_smart_contract_abi.json';
-import React, { useState, useEffect } from 'react';
 import dotenv from 'dotenv';
 import web3 from './web3';
 
 dotenv.config();
 
 // Function to get contract instance
-const GetContractInstance = async () => {
+const getContractInstance = async () => {
     try {
         // Retrieve contract address and web3 provider from environment variables
         const contractAddress = process.env.REACT_APP_CONTRACT_ADDRESS;
@@ -34,7 +33,7 @@ const GetContractInstance = async () => {
 // Initialize contract
 export const contract = async () => {
     try {
-        return await GetContractInstance();
+        return await getContractInstance();
     } catch (error) {
         console.error("Error initializing contract:", error);
         return null;
