@@ -8,6 +8,10 @@ const DisplayServiceOffer = () => {
 
     const filteredServiceOffers = serviceOffers.filter(request => request.status === "Service Offered");
 
+    if (filteredServiceOffers.length === 0) {
+      return <div className='component-container'>No service offered to display</div>;
+    }
+
     return (
         <div className='component-container'>
           <div className="table-container">
